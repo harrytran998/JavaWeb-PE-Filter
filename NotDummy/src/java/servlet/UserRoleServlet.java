@@ -31,6 +31,8 @@ public class UserRoleServlet extends HttpServlet {
 			if (request.getParameter("save") != null) {
 				String username = request.getParameter("username");
 				String role = request.getParameter("role");
+                                UserDao u = new UserDao();
+                                u.insert(username, role);
 			}
 			String username = request.getParameter("username");
 			List<User> users = new UserDao().getAllUser();
@@ -39,15 +41,9 @@ public class UserRoleServlet extends HttpServlet {
 			request.setAttribute("users", users);
 			request.setAttribute("size", size);
 			if (username == null) {
-				username = users.get(0).getUsername();
+			   username = users.get(0).getUsername();
 			}
 			request.setAttribute("assingedRoles", new UserRoleDao().getRolesByUser(username));
-			List<Role> lsit = new UserRoleDao().getRolesByUser(username);
-			for (Role role : lsit) {
-				System.out.println(role.getFeatures().toString());
-				System.out.println(role.getId());
-				System.out.println(role.getName());
-			}
 			request.setAttribute("username", username);
 			request.setAttribute("roles", new UserRoleDao().getNotRolesByUser(username));
 			request.getRequestDispatcher("/addUserRole.jsp").forward(request, response);
