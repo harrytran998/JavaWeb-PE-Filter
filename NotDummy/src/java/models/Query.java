@@ -16,9 +16,15 @@ public class Query {
 	public static String User_Select = "SELECT * FROM dbo.Users";
 
 	//List of roles <=> User
+	public static String UserName = null;
 	public static String Roles_User = "SELECT * FROM dbo.Role_User ru JOIN dbo.Roles r\n"
-					+ "ON r.roleid = ru.roleid AND ru.username = ?";
-
+					+ "ON r.roleid = ru.roleid AND ru.username = " + UserName;
+	
+	//List of roles NOT IN <=> User
+	public static String NotUserName = null;
+	public static String Not_Roles_User = "SELECT * FROM dbo.Roles WHERE roleid NOT IN (\n" +
+"	SELECT roleid FROM dbo.Role_User WHERE username = " + NotUserName + ")";
+	
 	// List features assign to Role
 	public static String Features_Role = "SELECT r.roleid, r.rolename, f.url FROM dbo.Features f Join dbo.Role_Feature rf Join dbo.Roles r\n"
 					+ "ON r.roleid = rf.roleid\n"
