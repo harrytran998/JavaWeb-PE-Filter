@@ -1,0 +1,39 @@
+-------------------------------------------------------
+Link
+
+<a href="">
+			<input type="text" name="" value="" />
+		</a>
+
+-------------------------------------------------------
+Text Input
+
+<input type="text" name="" value="" /> <br>
+<input type="password" name="" value="" /> <br>
+-------------------------------------------------------
+Drop Down List
+
+Group: <select name="GroupConTact">
+			<option value="1">Family - Nhom gia dinh</option>
+			<option value="2">Colleague - Nhom dong nghiep</option>
+			<option value="3">Friend - Nhom ban than</option>
+		</select> <br>
+
+-------------------------------------------------------
+For Each
+
+<c:forEach var="con" items="${listContact}">
+				<tr>
+					<td>${con.id}</td>
+					<td>${con.first}</td>
+					<td>${con.last}</td>
+					<td>${con.group}</td>
+					<td>${con.phone}</td>
+					<td>
+						<a href="EditContact?id=${con.id}">Edit</a>
+						<a href="DeleteContact?id=${con.id}">Remove</a>
+					</td>
+				</tr>
+			</c:forEach>
+
+-------------------------------------------------------

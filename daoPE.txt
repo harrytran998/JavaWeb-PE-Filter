@@ -1,0 +1,209 @@
+/////////////////////////////////// QUERY ///////////////////////
+SELECT u.username, r.rolename, f.featureid, f.url FROM dbo.Users AS u JOIN dbo.Role_User AS ru
+JOIN  dbo.Roles AS r JOIN dbo.Role_Feature rf JOIN dbo.Features f
+ON f.featureid = rf.featureid
+ON rf.roleid = r.roleid
+ON r.roleid = ru.roleid
+ON ru.username = u.username
+-----------------------------------------------------------------------------------
+
+package com.context;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBContext {
+    /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
+    /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
+     public Connection getConnection() throws Exception {
+        String url = "jdbc:sqlserver://"+serverName+":"+portNumber +";databaseName="+dbName;
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        return DriverManager.getConnection(url, userID, password);
+    }
+    /*Insert your other code right after this comment*/
+    /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
+    private final String serverName = "localhost"; //127.0.0.1
+    private final String dbName = "";
+    private final String portNumber = "1433";
+    private final String userID = "sa";
+    private final String password = "123456";
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Insert
+
+	public void insert(int dummyID, String dummyName) {
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			String sql = "INSERT INTO dbo.Dummy\n"
+							+ "(\n"
+							+ "    DummyID,\n"
+							+ "    DummyName\n"
+							+ ") VALUES (?, ?)";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, dummyID);
+			stmt.setString(2, dummyName);
+			stmt.executeUpdate();
+			stmt.close();
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+--------------------------------------------------------------------------------------------------------------------------------------------
+Select
+
+	public ArrayList<Dummy> listDummy() {
+		ArrayList<Dummy> listDummy = new ArrayList<>();
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			Statement stmt = con.createStatement();
+			String sql = "SELECT * FROM dbo.Dummy";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				listDummy.add(new Dummy(id, name));
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+			return listDummy;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+--------------------------------------------------------------------------------------------------------------------------------------------
+Update
+
+	public void edit(String dummyName, int featureID) {
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			String sql = "UPDATE dbo.Dummy SET  DummyName = ? WHERE DummyID = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, dummyName);
+			stmt.setInt(2, featureID);
+			stmt.executeUpdate();
+			stmt.close();
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+--------------------------------------------------------------------------------------------------------------------------------------------
+Delete
+
+	public void delete(String dummyID) {
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			String sql = "DELETE FROM dbo.Dummy WHERE DummyID = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, dummyID);
+			stmt.executeUpdate();
+			stmt.close();
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return;
+	}
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+GET ONE FROM DATABASE
+
+public Contact getContact(int id) {
+        Connection con = null;
+        DBContext db = new DBContext();
+        try {
+            con = db.getConnection();
+            Statement stmt = con.createStatement();
+            String sql = "SELECT firstname,lastname,phonenumber,groupId FROM Contact where id = " + id;
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                String fir = rs.getString(2);
+                String las = rs.getString(3);
+                int phone = rs.getInt(4);
+                int groupId = rs.getInt(5);
+                Contact cont = new Contact(id, fir, las, phone, groupId);
+                return cont;
+            }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+User
+
+	public boolean checkUserExist(String username) throws Exception {
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			String sql = "SELECT * FROM dbo.Users WHERE username = '" + username + "'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.next()) {
+				return false;
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean checkPasswordMatching(String username, String password) throws Exception {
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			String sql = "SELECT * FROM dbo.Users WHERE username = '" + username + "'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			User user = null;
+			while (rs.next()) {
+				String usernameDB = rs.getString(1);
+				String passwordDB = rs.getString(2);
+				user = new User(usernameDB, passwordDB);
+			}
+			if (password.equals(user.getPassword())) {
+				return true;
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+
+
+---------------------------------------------------------------
+DAte:
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+Date of birth: <fmt:formatDate value="${user.dateOfBirth}" pattern="yyyy-dd-MM" /><br>
+------ 
+Date to = Date.valueOf(req.getParameter("to"));
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+Wellcome file
+
+<welcome-file-list>
+  <welcome-file>index.html</welcome-file>
+</welcome-file-list>
