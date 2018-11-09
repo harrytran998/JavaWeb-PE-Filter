@@ -26,8 +26,8 @@ public class UserRoleDao {
 		try {
 			con = db.getConnection();
 			Statement stmt = con.createStatement();
-			Query.UserName = username;
-			String sql = Query.Roles_User;
+			String sql = "SELECT r.* FROM dbo.Role_User ru JOIN dbo.Roles r\n"
+					+ "ON r.roleid = ru.roleid WHERE ru.username = '" + username + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				int roleID = rs.getInt(1);
@@ -51,8 +51,9 @@ public class UserRoleDao {
 		try {
 			con = db.getConnection();
 			Statement stmt = con.createStatement();
-			Query.NotUserName = username;
-			String sql = Query.Not_Roles_User;
+//			Query.NotUserName = username;
+			String sql = "SELECT * FROM dbo.Roles WHERE roleid NOT IN (\n"
+					+ "	SELECT roleid FROM dbo.Role_User WHERE username = '" + username + "')";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				int roleID = rs.getInt(1);

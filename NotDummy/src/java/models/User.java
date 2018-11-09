@@ -5,6 +5,9 @@
  */
 package models;
 
+import controller.UserRoleDao;
+import java.util.List;
+
 /**
  *
  * @author demonslight998
@@ -35,5 +38,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public List<Role> getRoles() throws Exception{
+		return new UserRoleDao().getRolesByUser(username);
+	}
 }

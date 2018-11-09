@@ -5,6 +5,9 @@
  */
 package models;
 
+import controller.FeatureDao;
+import java.util.List;
+
 /**
  *
  * @author demonslight998
@@ -35,6 +38,10 @@ public class Role {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Feature> getFeatures() throws Exception{
+		return new FeatureDao().getFeaturesByRole("" + id);
 	}
 	
 }
