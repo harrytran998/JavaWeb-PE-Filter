@@ -6,7 +6,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserRoleServlet</servlet-name>
-        <url-pattern>/WS2UserRoleDB/UserRole/Add</url-pattern>
+        <url-pattern>/UserRoleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -23,7 +23,7 @@ public class DBContext {
     /*Insert your other code right after this comment*/
     /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
     private final String serverName = "localhost"; //127.0.0.1
-    private final String dbName = "RoleDB";
+    private final String dbName = "PRJ321_Fall2018";
     private final String portNumber = "1433";
     private final String userID = "sa";
     private final String password = "123456";

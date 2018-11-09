@@ -51,7 +51,6 @@ public class UserRoleDao {
 		try {
 			con = db.getConnection();
 			Statement stmt = con.createStatement();
-//			Query.NotUserName = username;
 			String sql = "SELECT * FROM dbo.Roles WHERE roleid NOT IN (\n"
 					+ "	SELECT roleid FROM dbo.Role_User WHERE username = '" + username + "')";
 			ResultSet rs = stmt.executeQuery(sql);
