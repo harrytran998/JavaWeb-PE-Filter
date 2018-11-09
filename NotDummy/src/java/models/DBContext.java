@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 
 /**
  *
- * @author Quang Hiep
+ * @author demonslight998
  */
 public class DBContext {
     /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
