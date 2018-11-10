@@ -7,12 +7,15 @@ package servlet;
 
 import controller.UserDao;
 import java.io.IOException;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.User;
+import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  *
@@ -37,39 +40,40 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		if (username.trim().isEmpty() || username == null) {
-			request.setAttribute("error", "Username can't be empty");
-			request.getRequestDispatcher("/Login.jsp").forward(request, response);
-		}
+		try {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			if (username.trim().isEmpty() || username == null) {
+				request.setAttribute("error", "Username can't be empty");
+				request.getRequestDispatcher("/Login.jsp").forward(request, response);
+			}
 
-		if (password.trim().isEmpty() || password == null) {
-			request.setAttribute("error", "Password can't be empty");
-			request.getRequestDispatcher("/Login.jsp").forward(request, response);
-		}
-		request.setAttribute("username", username);
-		request.setAttribute("password", password);
+			if (password.trim().isEmpty() || password == null) {
+				request.setAttribute("error", "Password can't be empty");
+				request.getRequestDispatcher("/Login.jsp").forward(request, response);
+			}
+			request.setAttribute("username", username);
+			request.setAttribute("password", password);
 
-		List<User> listUser = new UserDao().getAllUser();
-		for (User user : listUser) {
-			System.out.println(user.getUsername());
-		}
-		User temp = null;
-		for (User u : listUser) {
-			if (!u.getUsername().equalsIgnoreCase(username)) {
+			boolean existedUser = new UserDao().checkUserExist(username);
+			if (!existedUser) {
 				request.setAttribute("error", "User not exist");
 				request.getRequestDispatcher("/Login.jsp").forward(request, response);
-			} else {
-				temp = u;
 			}
-		}
-		if (!temp.getPassword().equalsIgnoreCase(password)){
-			request.setAttribute("error", "Password not matching !");
+			boolean passMatching = new UserDao().checkPasswordMatching(username, password);
+			if (!passMatching) {
+				request.setAttribute("errorPass", "Password not matching !");
 				request.getRequestDispatcher("/Login.jsp").forward(request, response);
+			}
+			User temp = new User(username, password);
+			HttpSession session = request.getSession();
+			session.setAttribute("username",  username);
+			
+			request.setAttribute("user", temp);
+			request.getRequestDispatcher("/RoleFeature.jsp").forward(request, response);
+		} catch (Exception ex) {
+			Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		request.setAttribute("user", temp);
-		request.getRequestDispatcher("/RoleFeature.jsp").forward(request, response);
 	}
 
 	/**

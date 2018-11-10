@@ -13,5 +13,8 @@
 	</head>
 	<body>
 		<h1>Hello World ${user.username}</h1>
+		<a href="LogoutServlet">
+			LogOut
+		</a>
 	</body>
 </html>
