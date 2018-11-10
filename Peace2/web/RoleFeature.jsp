@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%-- 
     Document   : RoleFeature
     Created on : Nov 10, 2018, 1:46:52 AM
@@ -34,8 +35,18 @@
 							<td>
 								<ul>
 									<c:forEach var="f" items="${ro.features}">
-										<li>${f.url}</li>
-										</c:forEach>
+										<li>
+											<c:if test="${f.url eq '/insert'}">
+												<a href="InsertDummy.jsp">${f.url}</a>
+											</c:if>
+											<c:if test="${f.url eq '/edit'}">
+												<a href="EditDummy.jsp">${f.url}</a>
+											</c:if>
+												<c:if test="${f.url eq '/detail'}">
+												<a href="DummyServlet">${f.url}</a>
+											</c:if>
+										</li>
+									</c:forEach>
 								</ul>
 							</td>
 						</tr>

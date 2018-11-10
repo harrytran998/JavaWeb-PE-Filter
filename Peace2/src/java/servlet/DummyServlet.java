@@ -5,23 +5,26 @@
  */
 package servlet;
 
-import controller.FeatureDao;
-import controller.RoleDao;
+import controller.DummyDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Feature;
-import models.Role;
+import models.Dummy;
 
 /**
  *
  * @author demonslight998
  */
-public class RoleFeatureServlet extends HttpServlet {
+@WebServlet(name = "DummyServlet", urlPatterns = {"/DummyServlet"})
+public class DummyServlet extends HttpServlet {
+
+
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
@@ -35,15 +38,12 @@ public class RoleFeatureServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
-		String username = request.getParameter("username");
-		System.out.println(username);
-		List<Role> listRoles = new RoleDao().getRoleByUser(username);
-		request.setAttribute("listRoles", listRoles);
-		for (Role listRole : listRoles) {
-			System.out.println(listRole.getName());
+		ArrayList<Dummy> listDummies = new DummyDao().getAllDummy();
+		for (Dummy listDummy : listDummies) {
+			System.out.println(listDummies.toString());
 		}
-		request.setAttribute("username", username);
-		request.getRequestDispatcher("RoleFeature.jsp").forward(request, response);
+		request.setAttribute("listDummies", listDummies);
+		request.getRequestDispatcher("ListDummy.jsp").forward(request, response);
 	}
 
 	/**
@@ -57,7 +57,6 @@ public class RoleFeatureServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
-		
 		
 	}
 

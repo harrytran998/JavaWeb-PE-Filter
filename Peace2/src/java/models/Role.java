@@ -41,7 +41,7 @@ public class Role {
 		this.name = name;
 	}
 
-	public List<Feature> getFeatures_Roles() throws Exception {
+	public List<Feature> getFeatures() throws Exception {
 		return new FeatureDao().getFeaturesByRole(id);
 	}
 

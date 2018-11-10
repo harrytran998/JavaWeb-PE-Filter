@@ -9,8 +9,8 @@
         <servlet-class>servlet.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RoleFeatureServlet</servlet-name>
-        <servlet-class>servlet.RoleFeatureServlet</servlet-class>
+        <servlet-name>ReFeature</servlet-name>
+        <servlet-class>servlet.ReFeature</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -21,8 +21,8 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RoleFeatureServlet</servlet-name>
-        <url-pattern>/RoleFeatureServlet</url-pattern>
+        <servlet-name>ReFeature</servlet-name>
+        <url-pattern>/ReFeature</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
