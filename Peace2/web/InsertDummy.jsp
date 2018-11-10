@@ -13,6 +13,10 @@
 	</head>
 	<body>
 		<h1>Add a Dummy</h1>
-		
+		<form action="DummyInsertServlet" method="POST">
+			Dummy ID: <input type="text" name="dummyID" value="" placeholder="Enter dummy id"/> <br>
+			Dummy Name: <input type="text" name="dummyName" value="" placeholder="Enter dummy name"/> <br>
+			<input type="submit" value="Add Dummy" />
+		</form>
 	</body>
 </html>

@@ -102,4 +102,20 @@ public class DummyDao {
 		}
 		return null;
 	}
+	public void delete(String dummyID) {
+		Connection con = null;
+		DBContext db = new DBContext();
+		try {
+			con = db.getConnection();
+			String sql = "DELETE FROM dbo.Dummy WHERE DummyID = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, dummyID);
+			stmt.executeUpdate();
+			stmt.close();
+			con.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return;
+	}
 }

@@ -30,6 +30,8 @@
 			</c:forEach>
 			</tbody>
 		</table>
-
+		<a href="RoleFeature.jsp">
+			<input type="submit" value="Return Home Page" />
+		</a>
 	</body>
 </html>

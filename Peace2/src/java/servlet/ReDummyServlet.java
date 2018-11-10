@@ -7,9 +7,7 @@ package servlet;
 
 import controller.DummyDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,27 +19,13 @@ import models.Dummy;
  *
  * @author demonslight998
  */
-@WebServlet(name = "DummyServlet", urlPatterns = {"/DummyServlet"})
-public class DummyServlet extends HttpServlet {
+//@WebServlet(name = "ReDummyServlet", urlPatterns = {"/ReDummyServlet"})
+public class ReDummyServlet extends HttpServlet {
 
-
-
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-	/**
-	 * Handles the HTTP <code>GET</code> method.
-	 *
-	 * @param request servlet request
-	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
 		ArrayList<Dummy> listDummies = new DummyDao().getAllDummy();
-		for (Dummy listDummy : listDummies) {
-			System.out.println(listDummies.toString());
-		}
 		request.setAttribute("listDummies", listDummies);
 		request.getRequestDispatcher("ListDummy.jsp").forward(request, response);
 	}

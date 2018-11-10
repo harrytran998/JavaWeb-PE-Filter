@@ -9,8 +9,16 @@
         <servlet-class>servlet.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReFeature</servlet-name>
-        <servlet-class>servlet.ReFeature</servlet-class>
+        <servlet-name>InsertDummy</servlet-name>
+        <servlet-class>servlet.DummyInsertServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditDummy</servlet-name>
+        <servlet-class>servlet.DummyEditServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DummyRemove</servlet-name>
+        <servlet-class>servlet.DummyRemoveServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -23,6 +31,18 @@
     <servlet-mapping>
         <servlet-name>ReFeature</servlet-name>
         <url-pattern>/ReFeature</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertDummy</servlet-name>
+        <url-pattern>/DummyInsertServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditDummy</servlet-name>
+        <url-pattern>/DummyEditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DummyRemove</servlet-name>
+        <url-pattern>/DummyRemoveServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

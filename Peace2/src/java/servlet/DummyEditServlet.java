@@ -11,36 +11,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author demonslight998
  */
-public class LogoutServlet extends HttpServlet {
+public class DummyEditServlet extends HttpServlet {
 
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
-		request.getRequestDispatcher("Login.jsp").include(request, response);
-		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession();
-		session.invalidate();
-		out.print("You are successfully logged out!");
 	}
+
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
-
 	}
 
-	/**
-	 * Returns a short description of the servlet.
-	 *
-	 * @return a String containing servlet description
-	 */
 	@Override
 	public String getServletInfo() {
 		return "Short description";

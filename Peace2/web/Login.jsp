@@ -17,8 +17,7 @@
 		<form action="LoginServlet" method="POST">
 			username: <input type="text" name="username" value="${username}" /> <br>
 			password: <input type="password" name="password" value="${password}" /> <br>
-			<input type="submit" value="Login" />
+			<input type="submit" value="Login"/>
 		</form>
-
 	</body>
 </html>
